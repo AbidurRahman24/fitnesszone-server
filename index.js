@@ -228,13 +228,13 @@ async function run() {
       });
 
       // client review
-      app.get('/review', async(req, res) =>{
+      app.get('/review', verifyJWT, async(req, res) =>{
         const query = {};
         const cursor = reviewtCollection.find(query);
         const result = await cursor.toArray();
         res.send(result);
       })
-      app.post('/review', async (req, res) => {
+      app.post('/review', verifyJWT,  async (req, res) => {
         const received = req.body;
         const result = await reviewtCollection.insertOne(received);
         res.send(result);
