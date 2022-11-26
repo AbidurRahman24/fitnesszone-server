@@ -7,7 +7,7 @@ const ObjectId = require('mongodb').ObjectId;
 const fileUpload = require('express-fileupload');
 var jwt = require('jsonwebtoken');
 const fs = require('fs-extra')
-const port =  5000;
+const port = process.env.PORT || 5000;
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
 
@@ -32,8 +32,8 @@ function verifyJWT(req, res, next) {
   })
 }
 
-const uri = "mongodb+srv://fitnesszone:XY9qEkAoZemEVm3i@cluster0.zbtoj.mongodb.net/?retryWrites=true&w=majority";
-
+const uri = `mongodb+srv://${process.env.USER_NAME}:${process.env.USER_PASSWORD}@cluster0.zbtoj.mongodb.net/?retryWrites=true&w=majority`;
+console.log(uri)
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
 
 async function run() {
@@ -43,6 +43,7 @@ async function run() {
       const orderCollection = client.db('fitnesszone').collection('order')
       const serviceCollection = client.db('fitnesszone').collection('services')
       const paymentCollection = client.db('fitnesszone').collection('payments')
+      const reviewtCollection = client.db('fitnesszone').collection('review')
       
       const verifyAdmin = async (req, res, next) =>{
         const requester = req.decoded.email
@@ -225,6 +226,20 @@ async function run() {
         const result = await orderCollection.deleteOne(query);
         res.send(result);
       });
+
+      // client review
+      app.get('/review', async(req, res) =>{
+        const query = {};
+        const cursor = reviewtCollection.find(query);
+        const result = await cursor.toArray();
+        res.send(result);
+      })
+      app.post('/review', async (req, res) => {
+        const received = req.body;
+        const result = await reviewtCollection.insertOne(received);
+        res.send(result);
+      });
+
     }
     finally {
   
