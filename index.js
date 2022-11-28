@@ -249,7 +249,7 @@ async function run() {
 
 
 
-app.get('/', (req, res) => {
+app.get('/home', (req, res) => {
   res.send('Hello World!')
 })
 app.listen(port, () => {
