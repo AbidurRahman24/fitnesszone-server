@@ -249,8 +249,11 @@ async function run() {
 
 
 
-app.get('/home', (req, res) => {
+app.get('/', (req, res) => {
   res.send('Hello World!')
+})
+app.get('/home', (req, res) => {
+  res.send('Hello home')
 })
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
