@@ -30,7 +30,7 @@ function verifyJWT(req, res, next) {
   })
 }
 
-const uri = `mongodb+srv://${process.env.USER_NAME}:${process.env.USER_PASSWORD}@cluster0.zbtoj.mongodb.net/?retryWrites=true&w=majority`;
+const uri = `mongodb+srv://fitnesszone:XY9qEkAoZemEVm3i@cluster0.zbtoj.mongodb.net/?retryWrites=true&w=majority`;
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
 
 async function run() {
