@@ -17,7 +17,6 @@ app.use(express.json());
 
 function verifyJWT(req, res, next) {
   const authHeader = req.headers.authorization;
-  // console.log(authHeader);
   if (!authHeader) {
     return res.status(401).send({ message: 'unauthorized access' });
   }
@@ -26,14 +25,12 @@ function verifyJWT(req, res, next) {
     if (err) {
       return res.status(403).send({ message: 'Forbidden access' });
     }
-    // console.log('decoded', decoded);
     req.decoded = decoded;
     next();
   })
 }
 
 const uri = `mongodb+srv://${process.env.USER_NAME}:${process.env.USER_PASSWORD}@cluster0.zbtoj.mongodb.net/?retryWrites=true&w=majority`;
-console.log(uri)
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
 
 async function run() {
@@ -228,7 +225,7 @@ async function run() {
       });
 
       // client review
-      app.get('/review', verifyJWT, async(req, res) =>{
+      app.get('/review', async(req, res) =>{
         const query = {};
         const cursor = reviewtCollection.find(query);
         const result = await cursor.toArray();
