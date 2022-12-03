@@ -30,13 +30,13 @@ function verifyJWT(req, res, next) {
   })
 }
 
-const uri = `mongodb+srv://fitnesszoneuser:4WfTtOlmFGTdbG4f@cluster0.43b0jb1.mongodb.net/?retryWrites=true&w=majority`;
-// const uri = `mongodb+srv://${process.env.USER_NAME}:${process.env.USER_PASSWORD}@cluster0.zbtoj.mongodb.net/?retryWrites=true&w=majority`;
+// const uri = `mongodb+srv://fitnesszoneuser:4WfTtOlmFGTdbG4f@cluster0.43b0jb1.mongodb.net/?retryWrites=true&w=majority`;
+const uri = `mongodb+srv://${process.env.USER_NAME}:${process.env.USER_PASSWORD}@cluster0.zbtoj.mongodb.net/?retryWrites=true&w=majority`;
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
 
 async function run() {
     try {
-      await client.connect();
+      // await client.connect();
       const userCollection = client.db('fitnesszone').collection('user')
       const orderCollection = client.db('fitnesszone').collection('order')
       const serviceCollection = client.db('fitnesszone').collection('services')
