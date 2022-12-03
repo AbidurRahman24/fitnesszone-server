@@ -30,7 +30,8 @@ function verifyJWT(req, res, next) {
   })
 }
 
-const uri = `mongodb+srv://${process.env.USER_NAME}:${process.env.USER_PASSWORD}@cluster0.zbtoj.mongodb.net/?retryWrites=true&w=majority`;
+const uri = `mongodb+srv://fitnesszoneuser:4WfTtOlmFGTdbG4f@cluster0.43b0jb1.mongodb.net/?retryWrites=true&w=majority`;
+// const uri = `mongodb+srv://${process.env.USER_NAME}:${process.env.USER_PASSWORD}@cluster0.zbtoj.mongodb.net/?retryWrites=true&w=majority`;
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
 
 async function run() {
@@ -111,7 +112,6 @@ async function run() {
         const services = await cursor.toArray();
         res.send(services);
       })
-  
   
       app.get('/services/:id', async (req, res) => {
         const id = req.params.id
